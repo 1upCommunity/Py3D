@@ -10,12 +10,50 @@ class Py3dWindow:
     
         self.projection_matrix = np.matrix([
             [1, 0, 0],
-            [0, 1, 0]
+            [0, 1, 0],
+            [0, 0, 1]
         ])
+
+        self.camera = [
+            [0, 0, 0],
+            [0, 0, 0],
+        ]
 
     def add_mesh(self, mesh):
         self.meshes.append(mesh)
-    
+
+    def rotate_matrix(self):
+        angle_x = self.camera[1][0]
+        angle_y = self.camera[1][1]
+        angle_z = self.camera[1][2]
+
+        rotation_z = np.matrix([
+            [np.cos(angle_z), -np.sin(angle_z), 0],
+            [np.sin(angle_z), np.cos(angle_z), 0],
+            [0, 0, 1],
+        ])
+
+        rotation_y = np.matrix([
+            [np.cos(angle_y), 0, np.sin(angle_y)],
+            [0, 1, 0],
+            [-np.sin(angle_y), 0, np.cos(angle_y)],
+        ])
+
+        rotation_x = np.matrix([
+            [1, 0, 0],
+            [0, np.cos(angle_x), -np.sin(angle_x)],
+            [0, np.sin(angle_x), np.cos(angle_x)],
+        ])
+
+        self.projection_matrix = np.dot(rotation_z, np.dot(rotation_y, rotation_x))
+
+    def move_matrix(self):
+        self.projection_matrix = np.dot(np.matrix([
+            [1, 0, 0],
+            [0, 1, 0],
+            [self.camera[0][0], self.camera[0][1], self.camera[0][2]],
+        ]), self.projection_matrix)
+
     def init_window(self):
         pygame.init()
         self.window = pygame.display.set_mode((self.width, self.height), pygame.RESIZABLE)
@@ -28,6 +66,8 @@ class Py3dWindow:
             self.draw()
             self.events()
             self.update()
+            self.rotate_matrix()
+            self.move_matrix()
         pygame.quit()
 
     def events(self,):
