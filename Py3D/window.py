@@ -9,8 +9,8 @@ class Py3dWindow:
         self.meshes = []
     
         self.projection_matrix = np.matrix([
-            [1, 0, 1],
-            [0, 1, 1]
+            [1, 0, 0],
+            [0, 1, 0]
         ])
 
     def add_mesh(self, mesh):
