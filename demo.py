@@ -8,18 +8,19 @@ win.init_window()
 
 mesh_ = Mesh(win)
 
-for i in range(-10, 10):
-    for j in range(-10, 10):
-        mesh_.add_point((i, random.randint(-1, 1) / 10, j))
+side = 10
+
+for i in range(-side, side):
+    for j in range(-side, side):
+        for k in range(-side, side):
+            mesh_.add_point((i + random.random(), j + random.random(), k + random.random()))
 
 win.add_mesh(mesh_)
 
-# key movement
 def move():
-    win.camera[1][0] += 0.001
-    win.camera[1][1] += 0.003
-    win.camera[1][2] += 0.002
-    win.camera[0][0] += 1
+    win.camera[1][0] += 0.01
+    win.camera[1][1] += 0.01
+    win.camera[1][2] += 0.01
 
 win.on_update(lambda: move())
 win.run()
