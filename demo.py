@@ -17,8 +17,8 @@ win.add_mesh(mesh_)
 # key movement
 def move():
     win.camera[1][0] += 0.001
-    win.camera[1][1] += 0.001
-    win.camera[1][2] += 0.001
+    win.camera[1][1] += 0.003
+    win.camera[1][2] += 0.002
     win.camera[0][0] += 1
 
 win.on_update(lambda: move())
