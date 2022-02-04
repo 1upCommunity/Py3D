@@ -49,9 +49,9 @@ class Py3dWindow:
 
     def move_matrix(self):
         self.projection_matrix = np.dot(np.matrix([
-            [1, 0, 0],
-            [0, 1, 0],
             [self.camera[0][0], self.camera[0][1], self.camera[0][2]],
+            [self.camera[0][0], self.camera[0][1], self.camera[0][2]],
+            [self.camera[0][0], self.camera[0][1], self.camera[0][2]]
         ]), self.projection_matrix)
 
     def init_window(self):
@@ -66,8 +66,8 @@ class Py3dWindow:
             self.draw()
             self.events()
             self.update()
-            self.rotate_matrix()
             self.move_matrix()
+            self.rotate_matrix()
         pygame.quit()
 
     def events(self,):
