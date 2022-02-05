@@ -17,10 +17,17 @@ for i in range(-side, side):
 
 win.add_mesh(mesh_)
 
-def move():
-    win.camera[1][0] += 0.01
-    win.camera[1][1] += 0.01
-    win.camera[1][2] += 0.01
+def move(events):
+    for i in events:
+        if i.type == 771:
+            if i.text == 'w':
+                win.camera[0][1] -= 1
+            if i.text == 's':
+                win.camera[0][1] += 1
+            if i.text == 'a':
+                win.camera[0][0] -= 1
+            if i.text == 'd':
+                win.camera[0][0] += 1
 
-win.on_update(lambda: move())
+win.on_events(move)
 win.run()

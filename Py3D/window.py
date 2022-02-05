@@ -7,6 +7,7 @@ class Py3dWindow:
         self.width = width
         self.height = height
         self.meshes = []
+        self.events_assinged = False
     
         self.projection_matrix = np.matrix([
             [1, 0, 0],
@@ -47,12 +48,6 @@ class Py3dWindow:
 
         self.projection_matrix = np.dot(rotation_z, np.dot(rotation_y, rotation_x))
 
-    def move_matrix(self):
-        self.projection_matrix = np.dot(np.matrix([
-            [self.camera[0][0], self.camera[0][1], self.camera[0][2]],
-            [self.camera[0][0], self.camera[0][1], self.camera[0][2]],
-            [self.camera[0][0], self.camera[0][1], self.camera[0][2]]
-        ]), self.projection_matrix)
 
     def init_window(self):
         pygame.init()
@@ -64,16 +59,17 @@ class Py3dWindow:
         self.running = True
         while self.running:
             self.draw()
-            self.events()
+            self.events(pygame.event.get())
             self.update()
-            self.move_matrix()
             self.rotate_matrix()
         pygame.quit()
 
-    def events(self,):
-        for event in pygame.event.get():
+    def events(self, events):
+        for event in events:
             if event.type == pygame.QUIT:
                 self.running = False
+        if self.events_assinged:
+            self._events(events)
 
     def update(self,):
         for event in pygame.event.get():
@@ -88,7 +84,8 @@ class Py3dWindow:
         time.sleep(0.001)
 
     def on_events(self, func):
-        self.events = lambda: func()
+        self._events = func
+        self.events_assinged = True
     
     def on_update(self, func):
         self.update = lambda: func()
