@@ -21,9 +21,9 @@ def move(events):
     for i in events:
         if i.type == 771:
             if i.text == 'w':
-                win.camera[0][1] -= 1
+                win.camera[0][2] -= 1
             if i.text == 's':
-                win.camera[0][1] += 1
+                win.camera[0][2] += 1
             if i.text == 'a':
                 win.camera[0][0] -= 1
             if i.text == 'd':

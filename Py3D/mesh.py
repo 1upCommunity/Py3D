@@ -10,12 +10,13 @@ class Mesh:
         self.points.append(np.matrix(position))
 
     def draw(self, window):
-        p = (self.points[0] - self.parent.camera[0])
-        print(self.points[0], p)
         for point in self.points:
             p = (point - self.parent.camera[0])
             p = np.reshape(p, (3, 1))
-            projection = np.dot(self.parent.projection_matrix, p)
+            campos = self.parent.camera[0]
+            campos = np.reshape(campos, (3, 1))
+            projection = np.dot(self.parent.projection_matrix, campos)
+            projection = np.dot(self.parent.projection_matrix, projection)
             projection = projection.tolist()
             x = projection[0][0]
             y = projection[1][0]
