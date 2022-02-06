@@ -72,6 +72,9 @@ class Py3dWindow:
         pygame.display.set_caption(self.title)
         self.running = False
 
+        self.logo = pygame.image.load("Py3d.png")
+        pygame.display.set_icon(self.logo)
+
     def run(self,):
         self.running = True
         while self.running:
