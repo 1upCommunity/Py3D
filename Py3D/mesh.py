@@ -48,21 +48,16 @@ class Mesh:
             [0, 0, 0, 1],
         ])
 
-        position_matrix = np.matrix([
-            [1, 0, 0, pos_x],
-            [0, 1, 0, pos_y],
-            [0, 0, 1, pos_z],
-            [0, 0, 0, 1],
-        ])
-
-        return rotation_x * rotation_y * rotation_z * position_matrix
+        return rotation_x * rotation_y * rotation_z
 
     def draw(self, window):
+        translation = [self.position[0] * 100, self.position[1] * 100, self.position[2] * 100, 0]
+
         for point in self.points:
             p = np.reshape(point, (4, 1))
             rot = self.get_rotated_matrix()
             projection = np.dot(self.parent.projection_matrix, p)
-            projection = rot * projection
+            projection = rot * projection + translation
             projection = projection.tolist()
             x = projection[0][0]
             y = projection[1][0]
@@ -74,8 +69,8 @@ class Mesh:
             rot = self.get_rotated_matrix()
             projection1 = np.dot(self.parent.projection_matrix, p1)
             projection2 = np.dot(self.parent.projection_matrix, p2)
-            projection1 = rot * projection1
-            projection2 = rot * projection2
+            projection1 = rot * projection1 + translation
+            projection2 = rot * projection2 + translation
             projection1 = projection1.tolist()
             projection2 = projection2.tolist()
             x1 = projection1[0][0]

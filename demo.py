@@ -46,8 +46,6 @@ def move(events):
                 win.camera[0][0] -= 1
 
     win.camera[1][1] -= 0.1
-    quad1.position[1] = math.sin(frame / 500) * 100
-    quad2.position[1] = math.sin(frame / 300) * 130
 
 win.on_events(move)
 win.run()
