@@ -16,6 +16,7 @@ quad1.add_line([1, 0, 0], [1, 1, 0])
 quad1.add_line([0, 1, 0], [1, 1, 0])
 
 quad1.position[1] = 1
+quad1.rotation[2] = 90
 win.add_mesh(quad1)
 
 quad2 = Mesh(win)
@@ -27,6 +28,7 @@ quad2.add_line([1, 0, 0], [1, 1, 0])
 quad2.add_line([0, 1, 0], [1, 1, 0])
 
 quad2.rotation[1] = 90
+quad2.rotation[0] = 45
 win.add_mesh(quad2)
 
 def move(events):
@@ -45,6 +47,7 @@ def move(events):
 
     win.camera[1][1] -= 0.1
     quad1.position[1] = math.sin(frame / 500) * 100
+    quad2.position[1] = math.sin(frame / 300) * 130
 
 win.on_events(move)
 win.run()
