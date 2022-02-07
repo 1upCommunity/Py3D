@@ -48,7 +48,14 @@ class Mesh:
             [0, 0, 0, 1],
         ])
 
-        return rotation_x * rotation_y * rotation_z
+        position_matrix = np.matrix([
+            [1, 0, 0, pos_x],
+            [0, 1, 0, pos_y],
+            [0, 0, 1, pos_z],
+            [0, 0, 0, 1],
+        ])
+
+        return rotation_x * rotation_y * rotation_z * position_matrix
 
     def draw(self, window):
         for point in self.points:
